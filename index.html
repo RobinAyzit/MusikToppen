@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MusikToppen - De bästa låtarna från alla genrer</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+tailwind.config={
+theme:{
+extend:{
+colors:{
+primary:'#5271ff',
+secondary:'#ff5757',
+dark: {
+bg: '#121212',
+surface: '#1e1e1e',
+text: '#ffffff'
+}
+},
+borderRadius:{
+'none':'0px',
+'sm':'4px',
+DEFAULT:'8px',
+'md':'12px',
+'lg':'16px',
+'xl':'20px',
+'2xl':'24px',
+'3xl':'32px',
+'full':'9999px',
+'button':'8px'
+}
+}
+}
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+
+body {
+font-family: 'Inter', sans-serif;
+background-color: #ffffff;
+color: #1f2937;
+}
+
+body.dark {
+background-color: #121212;
+color: #ffffff;
+}
+body.dark #app-header {
+background-color: #1e1e1e;
+border-bottom-color: #374151;
+}
+body.dark #app-header a, body.dark #app-header button:not(#donate-btn):not(#contact-btn) {
+color: #d1d5db;
+}
+body.dark #app-header nav a:hover, body.dark #app-header nav button:hover {
+background-color: #374151 !important;
+}
+body.dark #app-header .group:hover .absolute {
+background-color: #1e1e1e;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+}
+body.dark #app-header .group:hover .absolute a {
+color: #d1d5db;
+}
+body.dark #app-header .group:hover .absolute a:hover {
+background-color: #374151;
+}
+body.dark input[type="text"] {
+background-color: #374151;
+color: #ffffff;
+}
+body.dark input[type="text"]::placeholder {
+color: #9ca3af;
+}
+body.dark input[type="text"]:focus {
+background-color: #1e1e1e;
+}
+body.dark #donate-btn {
+/* primary button, colors set by tailwind */
+}
+body.dark #contact-btn {
+background-color: #1e1e1e;
+color: #8da2ff; /* Lighter primary for text on dark */
+border-color: #8da2ff;
+}
+body.dark #contact-btn:hover {
+background-color: #374151;
+}
+
+body.dark #donation-modal .bg-white, body.dark #contact-modal .bg-white, body.dark #genre-specific-modal .bg-white {
+background-color: #1e1e1e;
+}
+body.dark #donation-modal h3, body.dark #contact-modal h3, body.dark #genre-specific-modal h3 {
+color: #ffffff;
+}
+body.dark #donation-modal p, body.dark #contact-modal p, body.dark #genre-specific-modal p {
+color: #d1d5db;
+}
+body.dark #donation-modal button i.ri-close-line, body.dark #contact-modal button i.ri-close-line, body.dark #genre-specific-modal button i.ri-close-line {
+color: #9ca3af;
+}
+body.dark #donation-modal button i.ri-close-line:hover, body.dark #contact-modal button i.ri-close-line:hover, body.dark #genre-specific-modal button i.ri-close-line:hover {
+color: #ffffff;
+}
+body.dark #contact-modal a.bg-gray-100 {
+background-color: #374151;
+}
+body.dark #contact-modal a.bg-gray-100:hover {
+background-color: #4b5563;
+}
+body.dark #contact-modal a.bg-gray-100 span, body.dark #contact-modal a.bg-gray-100 i {
+color: #d1d5db;
+}
+body.dark #contact-modal a.bg-\[\#FFFC00\] span {
+    color: #121212 !important;
+}
+
+body.dark main h2 {
+color: #ffffff;
+}
+body.dark main .text-primary {
+color: #8da2ff;
+}
+
+body.dark .bg-white.rounded-lg.shadow-sm {
+background-color: #1e1e1e;
+box-shadow: 0 1px 2px 0 rgba(255, 255, 255, 0.05);
+}
+body.dark table thead th {
+color: #9ca3af;
+border-bottom-color: #374151;
+}
+body.dark table tbody tr {
+border-bottom-color: #374151;
+}
+body.dark table tbody tr:last-child {
+border-bottom: none;
+}
+body.dark .track-item:hover {
+background-color: rgba(82, 113, 255, 0.1);
+}
+body.dark .track-item .font-medium {
+color: #ffffff;
+}
+body.dark .track-item .text-sm.text-gray-500 {
+color: #9ca3af;
+}
+body.dark .track-item .text-sm {
+color: #d1d5db;
+}
+body.dark .track-item .text-gray-700 {
+    color: #d1d5db;
+}
+body.dark .track-item button.bg-gray-100 {
+background-color: #374151;
+}
+body.dark .track-item button.bg-gray-100:hover {
+background-color: #4b5563;
+}
+body.dark .track-item button.bg-gray-100 i {
+color: #d1d5db;
+}
+body.dark .vote-btn i {
+    color: #d1d5db;
+}
+body.dark .vote-btn.active i {
+    color: #ffffff !important;
+}
+body.dark .vote-btn.active {
+    background-color: #5271ff !important;
+}
+
+body.dark .genre-card {
+background-color: #1e1e1e;
+cursor: pointer;
+}
+body.dark .genre-card:hover {
+box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+transform: translateY(-5px) scale(1.02);
+}
+body.dark .genre-card h3 {
+color: #ffffff;
+}
+body.dark .genre-card p {
+color: #9ca3af;
+}
+body.dark .genre-card .text-primary {
+color: #8da2ff;
+}
+
+
+body.dark .p-3.rounded-lg.hover\:bg-gray-50 {
+}
+body.dark .p-3.rounded-lg.hover\:bg-gray-50:hover {
+    background-color: rgba(82, 113, 255, 0.1);
+}
+body.dark .p-3.rounded-lg .font-medium.text-gray-900 {
+    color: #ffffff;
+}
+body.dark .p-3.rounded-lg .text-sm.text-gray-600 {
+    color: #9ca3af;
+}
+body.dark .text-xl.font-bold.text-gray-400 {
+    color: #6b7280;
+}
+
+body.dark .bg-white.rounded-lg.shadow-sm.p-3 {
+    background-color: #1e1e1e;
+}
+body.dark .bg-white.rounded-lg.shadow-sm.p-3:hover {
+    box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.07), 0 2px 4px -1px rgba(255, 255, 255, 0.04);
+}
+body.dark .bg-white.rounded-lg.shadow-sm.p-3 .font-medium.text-gray-900 {
+    color: #ffffff;
+}
+body.dark .bg-white.rounded-lg.shadow-sm.p-3 .text-sm.text-gray-600 {
+    color: #9ca3af;
+}
+
+body.dark .fixed.bottom-0 {
+background-color: #1e1e1e;
+border-top-color: #374151;
+}
+body.dark #current-track-title {
+color: #ffffff;
+}
+body.dark #current-track-artist {
+color: #9ca3af;
+}
+body.dark .fixed.bottom-0 button:not(#play-pause-btn) { /* All buttons except main play/pause */
+color: #d1d5db;
+}
+body.dark .fixed.bottom-0 button:not(#play-pause-btn):hover {
+color: #ffffff;
+}
+body.dark #play-pause-btn {
+background-color: #5271ff;
+color: white;
+}
+body.dark #play-pause-btn:hover {
+background-color: #415bcf;
+}
+body.dark .player-progress, body.dark .volume-slider {
+background-color: #4b5563;
+}
+body.dark .player-progress::-webkit-slider-thumb, body.dark .volume-slider::-webkit-slider-thumb {
+background: #8da2ff;
+}
+body.dark .text-xs.text-gray-500 {
+color: #9ca3af;
+}
+
+body.dark #video-modal {
+}
+body.dark #video-modal .bg-black {
+}
+body.dark #close-video-btn {
+background-color: rgba(30,30,30,0.7);
+color: #ffffff;
+}
+body.dark #close-video-btn:hover {
+background-color: rgba(50,50,50,0.8);
+}
+
+.player-progress::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 12px;
+height: 12px;
+background: #5271ff;
+border-radius: 50%;
+cursor: pointer;
+}
+.volume-slider::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 10px;
+height: 10px;
+background: #5271ff;
+border-radius: 50%;
+cursor: pointer;
+}
+.custom-checkbox {
+position: relative;
+display: inline-block;
+width: 18px;
+height: 18px;
+border: 2px solid #d1d5db;
+border-radius: 4px;
+transition: all 0.2s;
+}
+body.dark .custom-checkbox {
+    border-color: #4b5563;
+}
+.custom-checkbox.checked {
+background-color: #5271ff;
+border-color: #5271ff;
+}
+.custom-checkbox.checked::after {
+content: '';
+position: absolute;
+left: 5px;
+top: 2px;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 44px;
+height: 22px;
+}
+.custom-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.switch-slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .4s;
+border-radius: 34px;
+}
+body.dark .switch-slider {
+    background-color: #4b5563;
+}
+.switch-slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 2px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+body.dark .switch-slider:before {
+    background-color: #d1d5db;
+}
+input:checked + .switch-slider {
+background-color: #5271ff;
+}
+input:checked + .switch-slider:before {
+transform: translateX(20px);
+}
+.genre-card {
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+cursor: pointer; /* Make it clear it's clickable */
+}
+.genre-card:hover {
+transform: translateY(-5px) scale(1.02); /* Added scale for more pop */
+box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.track-item {
+transition: background-color 0.2s ease;
+}
+.track-item:hover {
+background-color: rgba(82, 113, 255, 0.05);
+}
+.track-controls {
+opacity: 0;
+transition: opacity 0.2s ease;
+}
+.track-item:hover .track-controls {
+opacity: 1;
+}
+/* Hide mobile nav by default, show on md */
+#main-nav { display: none; }
+@media (min-width: 768px) { /* md breakpoint */
+  #main-nav { display: flex; }
+}
+#main-nav.mobile-active {
+  display: flex !important; /* Show nav when mobile active */
+  flex-direction: column;
+  position: absolute;
+  top: 100%; /* Below header */
+  left: 0;
+  right: 0;
+  background-color: #fff; /* Or dark mode equivalent */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 1rem;
+  z-index: 45; /* Below header's z-50 */
+}
+body.dark #main-nav.mobile-active {
+    background-color: #1e1e1e;
+}
+#main-nav.mobile-active a, #main-nav.mobile-active div > button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    justify-content: flex-start;
+}
+</style>
+</head>
+<body class="min-h-screen flex flex-col transition-colors duration-200" id="app-body">
+<!-- Header Navigation -->
+<header class="shadow-sm sticky top-0 z-50 transition-colors duration-200" id="app-header">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<div class="flex items-center space-x-4">
+<a href="#" class="flex items-center">
+<span class="text-2xl font-['Pacifico'] text-primary" data-translate-key="logo_text">MusikToppen</span>
+</a>
+<nav id="main-nav" class="items-center space-x-1"> <!-- Removed hidden md:flex -->
+<div class="relative group mr-2">
+<button class="p-2 rounded-full hover:bg-gray-100 flex items-center space-x-1">
+<img id="current-language-flag" src="https://flagcdn.com/w20/se.png" alt="Svenska" class="w-5 h-5 rounded-sm">
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<div class="absolute left-0 mt-1 w-40 bg-white shadow-lg rounded-md overflow-hidden z-10 hidden group-hover:block">
+<a href="#" data-lang="sv" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+<img src="https://flagcdn.com/w20/se.png" alt="Svenska" class="w-5 h-5 rounded-sm mr-2">
+<span data-translate-key="lang_swedish">Svenska</span>
+</a>
+<a href="#" data-lang="en" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+<img src="https://flagcdn.com/w20/gb.png" alt="English" class="w-5 h-5 rounded-sm mr-2">
+<span data-translate-key="lang_english">English</span>
+</a>
+<a href="#" data-lang="tr" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+<img src="https://flagcdn.com/w20/tr.png" alt="Turkish" class="w-5 h-5 rounded-sm mr-2">
+<span data-translate-key="lang_turkish">Türkçe</span>
+</a>
+</div>
+</div>
+<button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
+<i class="ri-sun-line text-xl" id="theme-icon"></i>
+</button>
+<a href="#" class="px-3 py-2 rounded-button hover:bg-gray-100 font-medium whitespace-nowrap" data-translate-key="nav_home">Hem</a>
+<a href="#trending" class="px-3 py-2 rounded-button hover:bg-gray-100 font-medium whitespace-nowrap" data-translate-key="nav_weekly">Veckans Lista</a>
+<a href="#monthly-charts" class="px-3 py-2 rounded-button hover:bg-gray-100 font-medium whitespace-nowrap" data-translate-key="nav_monthly">Månadens Lista</a>
+<div class="relative group">
+<button class="px-3 py-2 rounded-button hover:bg-gray-100 font-medium flex items-center whitespace-nowrap">
+<span data-translate-key="nav_yearly">Årsbästa</span>
+<span class="w-5 h-5 ml-1 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</span>
+</button>
+<div class="absolute left-0 mt-1 w-48 bg-white shadow-lg rounded-md overflow-hidden z-10 hidden group-hover:block">
+<a href="#best-of-2025" class="block px-4 py-2 text-gray-700 hover:bg-gray-100" data-translate-key="nav_best_2025">Best of 2025</a>
+<a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100" data-translate-key="nav_best_2024">Best of 2024</a>
+</div>
+</div>
+<div class="relative group">
+<button class="px-3 py-2 rounded-button hover:bg-gray-100 font-medium flex items-center whitespace-nowrap">
+<span data-translate-key="nav_genres">Genrer</span>
+<span class="w-5 h-5 ml-1 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</span>
+</button>
+<div class="absolute left-0 mt-1 w-48 bg-white shadow-lg rounded-md overflow-hidden z-10 hidden group-hover:block">
+<a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 genre-link" data-genre="turkish" data-translate-key="genre_turkish">Turkish</a>
+<a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 genre-link" data-genre="reggae" data-translate-key="genre_reggae">Reggae</a>
+<a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 genre-link" data-genre="dancehall" data-translate-key="genre_dancehall">Dancehall</a>
+<a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 genre-link" data-genre="pop" data-translate-key="genre_pop">Pop</a>
+<a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 genre-link" data-genre="hiphop" data-translate-key="genre_hiphop">Hip-Hop</a>
+</div>
+</div>
+</nav>
+</div>
+<div class="flex items-center">
+<div class="relative mr-2">
+<input type="text" data-translate-key="search_placeholder" placeholder="Sök låtar, artister..." class="pl-10 pr-4 py-2 w-44 md:w-64 rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white border-none text-sm">
+<span class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 flex items-center justify-center">
+<i class="ri-search-line"></i>
+</span>
+</div>
+<button id="mobile-menu-button" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center md:hidden">
+<i class="ri-menu-line text-gray-700"></i>
+</button>
+</div>
+<div class="hidden md:flex items-center space-x-2"> <!-- This div wraps donate/contact for md+ -->
+<button id="donate-btn" class="px-4 py-2 bg-primary text-white rounded-button flex items-center hover:bg-primary/90 transition-colors">
+<i class="ri-heart-fill mr-2"></i>
+<span data-translate-key="donate_button">Donera</span>
+</button>
+<button id="contact-btn" class="px-4 py-2 bg-white text-primary border border-primary rounded-button flex items-center hover:bg-gray-50 transition-colors">
+<i class="ri-contacts-line mr-2"></i>
+<span data-translate-key="contact_button">Kontakt</span>
+</button>
+</div>
+</div>
+<!-- Mobile only Donate/Contact, shown when menu is open -->
+<div id="mobile-action-buttons" class="hidden items-center space-x-2 p-4 md:hidden">
+    <button id="donate-btn-mobile" class="w-full px-4 py-2 bg-primary text-white rounded-button flex items-center justify-center hover:bg-primary/90 transition-colors">
+        <i class="ri-heart-fill mr-2"></i>
+        <span data-translate-key="donate_button_m">Donera</span>
+    </button>
+    <button id="contact-btn-mobile" class="w-full px-4 py-2 bg-white text-primary border border-primary rounded-button flex items-center justify-center hover:bg-gray-50 transition-colors">
+        <i class="ri-contacts-line mr-2"></i>
+        <span data-translate-key="contact_button_m">Kontakt</span>
+    </button>
+</div>
+</header>
+
+<!-- Donation Modal -->
+<div id="donation-modal" class="fixed inset-0 bg-black/50 z-[60] hidden flex items-center justify-center p-4">
+<div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-xl font-bold text-gray-900" data-translate-key="donation_modal_title">Stöd MusikToppen</h3>
+<button id="close-donation-modal" class="text-gray-500 hover:text-gray-700">
+<i class="ri-close-line text-2xl"></i>
+</button>
+</div>
+<p class="text-gray-600 mb-6" data-translate-key="donation_modal_text">Tack för att du vill stödja MusikToppen! Din donation hjälper oss att fortsätta dela bra musik med alla.</p>
+<div class="space-y-4">
+<a href="https://paypal.me/yourusername" target="_blank" class="w-full flex items-center justify-center px-4 py-3 bg-[#0070BA] text-white rounded-button hover:bg-[#005ea6] transition-colors"> <!-- Lämna som placeholder eller ta bort om du inte har PayPal -->
+<i class="ri-paypal-fill mr-2 text-xl"></i>
+<span data-translate-key="donation_paypal">Donera via PayPal</span>
+</a>
+<button id="show-swish" class="w-full flex items-center justify-center px-4 py-3 bg-[#F8B9B7] text-[#7A017A] rounded-button hover:bg-[#f7a8a6] transition-colors">
+<img src="https://www.getswish.se/content/uploads/2020/04/Swish_Logo_Primary_Light-BG.svg" alt="Swish Logo" class="h-6 mr-2">
+<span data-translate-key="donation_swish">Donera via Swish</span>
+</button>
+<div id="swish-info" class="hidden text-center p-3 bg-gray-100 rounded-md">
+<p class="text-gray-700"><span data-translate-key="swish_to">Swisha till:</span> <strong class="text-primary">0702202027</strong></p>
+<p class="text-sm text-gray-500 mt-1"><span data-translate-key="swish_receiver">Mottagare:</span> Robin Ayzit (MusikToppen)</p> <!-- Du kan ändra mottagarnamn om du vill -->
+</div>
+</div>
+</div>
+</div>
+<!-- Contact Modal -->
+<div id="contact-modal" class="fixed inset-0 bg-black/50 z-[60] hidden flex items-center justify-center p-4">
+<div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-xl font-bold text-gray-900" data-translate-key="contact_modal_title">Kontakta Oss</h3>
+<button id="close-contact-modal" class="text-gray-500 hover:text-gray-700">
+<i class="ri-close-line text-2xl"></i>
+</button>
+</div>
+<div class="space-y-4">
+<a href="mailto:robinayzit@gmail.com" class="w-full flex items-center px-4 py-3 bg-gray-100 rounded-button hover:bg-gray-200 transition-colors">
+<i class="ri-mail-line text-xl text-gray-700 mr-3"></i>
+<span class="text-gray-700">robinayzit@gmail.com</span>
+</a>
+<a href="http://facebook.com/RobinAyzit" target="_blank" class="w-full flex items-center px-4 py-3 bg-[#1877F2] text-white rounded-button hover:bg-[#1877F2]/90 transition-colors">
+<i class="ri-facebook-fill text-xl mr-3"></i>
+<span data-translate-key="contact_facebook">Följ oss på Facebook</span>
+</a>
+<a href="https://www.instagram.com/RobinAyzit" target="_blank" class="w-full flex items-center px-4 py-3 bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] text-white rounded-button hover:opacity-90 transition-opacity"> <!-- Lade till https:// -->
+<i class="ri-instagram-fill text-xl mr-3"></i>
+<span data-translate-key="contact_instagram">Följ oss på Instagram</span>
+</a>
+<a href="https://www.snapchat.com/add/RobinAyzit" target="_blank" class="w-full flex items-center px-4 py-3 bg-[#FFFC00] rounded-button hover:bg-[#FFFC00]/90 transition-colors"> <!-- Lade till https://www.snapchat.com/add/ -->
+<i class="ri-snapchat-fill text-xl text-black mr-3"></i>
+<span class="text-black" data-translate-key="contact_snapchat">Lägg till oss på Snapchat</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Hero Section -->
+<section id="hero-section" class="relative overflow-hidden" style="background-image: url('https://readdy.ai/api/search-image?query=modern%20music%20streaming%20service%20hero%20image%20with%20abstract%20colorful%20sound%20waves%20and%20music%20notes%20on%20a%20gradient%20blue%20background%2C%20high%20quality%20digital%20art%2C%20minimalist%20design%2C%20clean%20layout%2C%20vibrant%20colors%2C%20professional%20look&width=1600&height=600&seq=hero1&orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary/30"></div>
+<div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
+<div class="max-w-2xl">
+<h1 class="text-4xl md:text-5xl font-bold text-white mb-4" data-translate-key="hero_title">Upptäck Musik På Ett Nytt Sätt</h1>
+<p class="text-xl text-white/90 mb-8" data-translate-key="hero_subtitle">Utforska de senaste topplistorna, upptäck nya genrer och skapa dina egna spellistor med MusikToppen.</p>
+<div class="flex flex-wrap gap-4">
+<a href="#trending" class="bg-white text-primary px-6 py-3 rounded-button font-semibold shadow-lg hover:bg-gray-100 transition whitespace-nowrap" data-translate-key="hero_button_explore_charts">Utforska Topplistor</a>
+<a href="#genres" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-button font-semibold hover:bg-white/10 transition whitespace-nowrap" data-translate-key="hero_button_browse_genres">Bläddra Genrer</a>
+</div>
+</div>
+</div>
+</section>
+
+<main class="flex-grow container mx-auto px-4 py-8">
+<!-- This div will wrap the main content sections that can be toggled -->
+<div id="main-content-area">
+    <!-- Weekly Top Charts -->
+    <section id="trending" class="mb-12 main-chart-section">
+    <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold" data-translate-key="charts_weekly_title">Veckans Topplista</h2>
+    <a href="#" class="text-primary font-medium flex items-center hover:underline">
+    <span data-translate-key="view_all">Visa alla</span>
+    <span class="w-5 h-5 ml-1 flex items-center justify-center">
+    <i class="ri-arrow-right-line"></i>
+    </span>
+    </a>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+    <table class="w-full">
+    <thead>
+    <tr class="border-b">
+    <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 w-12">#</th>
+    <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600" data-translate-key="table_header_song">Låt</th>
+    <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 hidden md:table-cell" data-translate-key="table_header_artist">Artist</th>
+    <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 hidden lg:table-cell" data-translate-key="table_header_album">Album</th>
+    <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 w-24 hidden sm:table-cell" data-translate-key="table_header_time">Tid</th>
+    <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 w-40 hidden md:table-cell" data-translate-key="table_header_votes">Röster</th>
+    <th class="px-4 py-3 text-center text-sm font-semibold text-gray-600 w-20"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="track-item border-b" data-track-id="weekly-1" data-youtube-id="dQw4w9WgXcQ">
+    <td class="px-4 py-3 text-sm font-medium">1</td>
+    <td class="px-4 py-3">
+    <div class="flex items-center">
+    <img src="https://readdy.ai/api/search-image?query=modern%20album%20cover%20with%20abstract%20design%2C%20vibrant%20colors%2C%20minimalist%20style%2C%20high%20quality%20digital%20art&width=60&height=60&seq=album1&orientation=squarish" alt="Album cover" class="w-10 h-10 rounded mr-3">
+    <div>
+    <div class="font-medium">Sommarnätter</div>
+    <div class="text-sm text-gray-500 md:hidden">Linnea Henriksson</div>
+    </div>
+    </div>
+    </td>
+    <td class="px-4 py-3 text-sm hidden md:table-cell">Linnea Henriksson</td>
+    <td class="px-4 py-3 text-sm hidden lg:table-cell">Vår Tid Nu</td>
+    <td class="px-4 py-3 text-sm hidden sm:table-cell">3:42</td>
+    <td class="px-4 py-3 hidden md:table-cell">
+    <div class="flex items-center space-x-2">
+    <button class="vote-btn like-btn w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200" aria-label="Gilla låt">
+    <i class="ri-thumb-up-line"></i>
+    </button>
+    <span class="text-sm like-count">1238</span>
+    <button class="vote-btn dislike-btn w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200" aria-label="Ogilla låt">
+    <i class="ri-thumb-down-line"></i>
+    </button>
+    <span class="text-sm dislike-count">24</span>
+    </div>
+    </td>
+    <td class="px-4 py-3">
+    <div class="flex justify-center items-center space-x-2 track-controls">
+    <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 play-track-btn" aria-label="Spela låt">
+    <i class="ri-play-fill"></i>
+    </button>
+    <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200" aria-label="Lägg till i spellista">
+    <i class="ri-add-line"></i>
+    </button>
+    </div>
+    </td>
+    </tr>
+    <tr class="track-item border-b" data-track-id="weekly-2" data-youtube-id="kfXsl7qClgY">
+    <td class="px-4 py-3 text-sm font-medium">2</td>
+    <td class="px-4 py-3">
+    <div class="flex items-center">
+    <img src="https://readdy.ai/api/search-image?query=modern%20album%20cover%20with%20dark%20moody%20atmosphere%2C%20urban%20style%2C%20high%20quality%20digital%20art&width=60&height=60&seq=album2&orientation=squarish" alt="Album cover" class="w-10 h-10 rounded mr-3">
+    <div>
+    <div class="font-medium">Stockholm i Mitt Hjärta</div>
+    <div class="text-sm text-gray-500 md:hidden">Veronica Maggio</div>
+    </div>
+    </div>
+    </td>
+    <td class="px-4 py-3 text-sm hidden md:table-cell">Veronica Maggio</td>
+    <td class="px-4 py-3 text-sm hidden lg:table-cell">Fiender är Tråkigt</td>
+    <td class="px-4 py-3 text-sm hidden sm:table-cell">4:15</td>
+    <td class="px-4 py-3 hidden md:table-cell">
+    <div class="flex items-center space-x-2">
+    <button class="vote-btn like-btn w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200" aria-label="Gilla låt">
+    <i class="ri-thumb-up-line"></i>
+    </button>
+    <span class="text-sm like-count">1050</span>
+    <button class="vote-btn dislike-btn w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200" aria-label="Ogilla låt">
+    <i class="ri-thumb-down-line"></i>
+    </button>
+    <span class="text-sm dislike-count">15</span>
+    </div>
+    </td>
+    <td class="px-4 py-3">
+    <div class="flex justify-center items-center space-x-2 track-controls">
+    <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 play-track-btn" aria-label="Spela låt">
+    <i class="ri-play-fill"></i>
+    </button>
+    <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200" aria-label="Lägg till i spellista">
+    <i class="ri-add-line"></i>
+    </button>
+    </div>
+    </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </section>
+    <!-- Genre Section -->
+    <section id="genres" class="mb-12 main-chart-section">
+    <h2 class="text-2xl font-bold mb-6" data-translate-key="genres_section_title">Utforska Genrer</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <!-- Kurdish Music -->
+    <div class="genre-card bg-white rounded-lg shadow-sm overflow-hidden" data-genre="kurdish" data-genre-name-key="genre_kurdish_full">
+    <div class="h-40 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=kurdish%20music%20scene%20with%20traditional%20instruments%2C%20colorful%20cultural%20elements%2C%20professional%20photography%2C%20high%20quality&width=400&height=200&seq=kurdish&orientation=landscape')"></div>
+    <div class="p-5">
+    <h3 class="text-xl font-bold mb-2" data-translate-key="genre_kurdish_full">Kurdish</h3>
+    <p class="text-gray-600 mb-4" data-translate-key="genre_kurdish_desc">Upptäck kurdisk musik från olika regioner och stilar.</p>
+    <div class="flex items-center space-x-3 mb-4">
+    <a href="#" class="inline-flex items-center text-green-600 hover:text-green-700" aria-label="Lyssna på Spotify">
+    <i class="ri-spotify-fill text-2xl"></i>
+    </a>
+    <a href="#" class="inline-flex items-center text-red-600 hover:text-red-700" aria-label="Titta på YouTube">
+    <i class="ri-youtube-fill text-2xl"></i>
+    </a>
+    </div>
+    <span class="inline-flex items-center text-primary font-medium hover:underline">
+    <span data-translate-key="explore_now">Utforska nu</span>
+    <i class="ri-arrow-right-line ml-1"></i>
+    </span>
+    </div>
+    </div>
+    <!-- Turkish Music -->
+    <div class="genre-card bg-white rounded-lg shadow-sm overflow-hidden" data-genre="turkish" data-genre-name-key="genre_turkish_full">
+    <div class="h-40 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=turkish%20music%20scene%20with%20traditional%20instruments%20like%20saz%20and%20baglama%2C%20colorful%20stage%20lighting%2C%20professional%20concert%20photography%2C%20high%20quality&width=400&height=200&seq=turkish&orientation=landscape')"></div>
+    <div class="p-5">
+    <h3 class="text-xl font-bold mb-2" data-translate-key="genre_turkish_full">Turkish</h3>
+    <p class="text-gray-600 mb-4" data-translate-key="genre_turkish_desc">Upptäck de bästa turkiska låtarna från både traditionell och modern musik.</p>
+    <div class="flex items-center space-x-3 mb-4">
+    <a href="#" class="inline-flex items-center text-green-600 hover:text-green-700" aria-label="Lyssna på Spotify">
+    <i class="ri-spotify-fill text-2xl"></i>
+    </a>
+    <a href="#" class="inline-flex items-center text-red-600 hover:text-red-700" aria-label="Titta på YouTube">
+    <i class="ri-youtube-fill text-2xl"></i>
+    </a>
+    </div>
+    <span class="inline-flex items-center text-primary font-medium hover:underline">
+    <span data-translate-key="explore_now">Utforska nu</span>
+    <i class="ri-arrow-right-line ml-1"></i>
+    </span>
+    </div>
+    </div>
+    <!-- Add more genre cards here with data-genre and data-genre-name-key -->
+    <div class="genre-card bg-white rounded-lg shadow-sm overflow-hidden" data-genre="reggae" data-genre-name-key="genre_reggae_full">
+        <div class="h-40 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=reggae%20music%20scene%20with%20rastafarian%20elements%2C%20warm%20lighting%2C%20live%20band%20performance%2C%20professional%20photography%2C%20high%20quality&width=400&height=200&seq=reggae1&orientation=landscape')"></div>
+        <div class="p-5">
+        <h3 class="text-xl font-bold mb-2" data-translate-key="genre_reggae_full">Reggae</h3>
+        <p class="text-gray-600 mb-4" data-translate-key="genre_reggae_desc">Klassisk och modern reggae från Jamaica och världen över.</p>
+        <div class="flex items-center space-x-3 mb-4">
+        <a href="#" class="inline-flex items-center text-green-600 hover:text-green-700" aria-label="Lyssna på Spotify">
+        <i class="ri-spotify-fill text-2xl"></i>
+        </a>
+        <a href="#" class="inline-flex items-center text-red-600 hover:text-red-700" aria-label="Titta på YouTube">
+        <i class="ri-youtube-fill text-2xl"></i>
+        </a>
+        </div>
+        <span class="inline-flex items-center text-primary font-medium hover:underline">
+        <span data-translate-key="explore_now">Utforska nu</span>
+        <i class="ri-arrow-right-line ml-1"></i>
+        </span>
+        </div>
+    </div>
+    <div class="genre-card bg-white rounded-lg shadow-sm overflow-hidden" data-genre="hiphop" data-genre-name-key="genre_hiphop_full">
+        <div class="h-40 bg-cover bg-center" style="background-image: url('https://readdy.ai/api/search-image?query=hip%20hop%20concert%20scene%20with%20urban%20setting%2C%20dynamic%20lighting%2C%20rap%20performance%2C%20professional%20photography%2C%20high%20quality&width=400&height=200&seq=hiphop&orientation=landscape')"></div>
+        <div class="p-5">
+        <h3 class="text-xl font-bold mb-2" data-translate-key="genre_hiphop_full">HipHop</h3>
+        <p class="text-gray-600 mb-4" data-translate-key="genre_hiphop_desc">Det bästa inom hiphop och rap.</p>
+        <div class="flex items-center space-x-3 mb-4">
+        <a href="#" class="inline-flex items-center text-green-600 hover:text-green-700" aria-label="Lyssna på Spotify">
+        <i class="ri-spotify-fill text-2xl"></i>
+        </a>
+        <a href="#" class="inline-flex items-center text-red-600 hover:text-red-700" aria-label="Titta på YouTube">
+        <i class="ri-youtube-fill text-2xl"></i>
+        </a>
+        </div>
+        <span class="inline-flex items-center text-primary font-medium hover:underline">
+        <span data-translate-key="explore_now">Utforska nu</span>
+        <i class="ri-arrow-right-line ml-1"></i>
+        </span>
+        </div>
+    </div>
+    </div>
+    </section>
+    <!-- Monthly Charts -->
+    <section id="monthly-charts" class="mb-12 main-chart-section">
+    <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold" data-translate-key="charts_monthly_title">Månadens Topplista</h2>
+    <a href="#" class="text-primary font-medium flex items-center hover:underline">
+    <span data-translate-key="view_all">Visa alla</span>
+    <span class="w-5 h-5 ml-1 flex items-center justify-center">
+    <i class="ri-arrow-right-line"></i>
+    </span>
+    </a>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="flex items-center p-3 rounded-lg hover:bg-gray-50 track-item" data-track-id="monthly-1" data-youtube-id="PT2_F-1esPk">
+    <span class="text-xl font-bold text-gray-400 w-8">1</span>
+    <img src="https://readdy.ai/api/search-image?query=modern%20album%20cover%20with%20pop%20music%20style%2C%20bright%20colors%2C%20female%20artist%2C%20high%20quality%20digital%20art&width=80&height=80&seq=monthly1&orientation=squarish" alt="Album cover" class="w-16 h-16 rounded mr-4">
+    <div class="flex-grow">
+    <h3 class="font-medium text-gray-900">Midnattssol</h3>
+    <p class="text-sm text-gray-600">Zara Larsson</p>
+    </div>
+    <div class="flex items-center space-x-2 track-controls">
+    <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 play-track-btn" aria-label="Spela låt">
+    <i class="ri-play-fill"></i>
+    </button>
+    </div>
+    </div>
+    <div class="flex items-center p-3 rounded-lg hover:bg-gray-50 track-item" data-track-id="monthly-2">
+    <span class="text-xl font-bold text-gray-400 w-8">2</span>
+    <img src="https://readdy.ai/api/search-image?query=modern%20album%20cover%20with%20electronic%20dance%20music%20style%2C%20neon%20colors%2C%20high%20quality%20digital%20art&width=80&height=80&seq=monthly2&orientation=squarish" alt="Album cover" class="w-16 h-16 rounded mr-4">
+    <div class="flex-grow">
+    <h3 class="font-medium text-gray-900">Dansa Hela Natten</h3>
+    <p class="text-sm text-gray-600">Swedish House Mafia</p>
+    </div>
+    <div class="flex items-center space-x-2 track-controls">
+    <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 play-track-btn" aria-label="Spela låt">
+    <i class="ri-play-fill"></i>
+    </button>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
+    <!-- Best of 2025 -->
+    <section id="best-of-2025" class="mb-12 main-chart-section">
+    <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold" data-translate-key="charts_best_of_2025_title">Best of 2025</h2>
+    <a href="#" class="text-primary font-medium flex items-center hover:underline">
+    <span data-translate-key="view_all">Visa alla</span>
+    <span class="w-5 h-5 ml-1 flex items-center justify-center">
+    <i class="ri-arrow-right-line"></i>
+    </span>
+    </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    <div class="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition">
+    <img src="https://readdy.ai/api/search-image?query=modern%20album%20cover%20with%20pop%20music%20style%2C%20vibrant%20colors%2C%20high%20quality%20digital%20art&width=200&height=200&seq=best1&orientation=squarish" alt="Album cover" class="w-full h-auto rounded mb-3">
+    <h3 class="font-medium text-gray-900 truncate">Sommardröm</h3>
+    <p class="text-sm text-gray-600 truncate">Tove Lo</p>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition">
+    <img src="https://readdy.ai/api/search-image?query=modern%20album%20cover%20with%20electronic%20music%20style%2C%20futuristic%20design%2C%20high%20quality%20digital%20art&width=200&height=200&seq=best2&orientation=squarish" alt="Album cover" class="w-full h-auto rounded mb-3">
+    <h3 class="font-medium text-gray-900 truncate">Digital Kärlek</h3>
+    <p class="text-sm text-gray-600 truncate">Alesso</p>
+    </div>
+    </div>
+    </section>
+</div> <!-- End of #main-content-area -->
+
+<!-- Genre Specific List Section (Initially Hidden) -->
+<section id="genre-specific-list-section" class="mb-12 hidden">
+    <div class="flex justify-between items-center mb-6">
+        <h2 id="genre-specific-title" class="text-2xl font-bold"></h2>
+        <button id="back-to-all-genres-btn" class="text-primary font-medium flex items-center hover:underline">
+            <i class="ri-arrow-left-line mr-1"></i>
+            <span data-translate-key="back_to_all_genres">Tillbaka till alla genrer</span>
+        </button>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="border-b">
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 w-12">#</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600" data-translate-key="table_header_song_genre">Låt</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 hidden md:table-cell" data-translate-key="table_header_artist_genre">Artist</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 hidden lg:table-cell" data-translate-key="table_header_album_genre">Album</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 w-24 hidden sm:table-cell" data-translate-key="table_header_time_genre">Tid</th>
+                        <th class="px-4 py-3 text-center text-sm font-semibold text-gray-600 w-20"></th>
+                    </tr>
+                </thead>
+                <tbody id="genre-specific-track-list">
+                    <!-- Tracks will be injected here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</main>
+<!-- Music Player -->
+<div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40">
+<div class="container mx-auto px-4 py-3">
+<div class="flex items-center">
+<!-- Song Info -->
+<div class="flex items-center mr-4 w-1/4">
+<img id="current-track-image" src="https://readdy.ai/api/search-image?query=modern%20album%20cover%20with%20abstract%20design%2C%20vibrant%20colors%2C%20minimalist%20style%2C%20high%20quality%20digital%20art&width=60&height=60&seq=current&orientation=squarish" alt="Current track" class="w-12 h-12 rounded mr-3">
+<div class="overflow-hidden">
+<div id="current-track-title" class="font-medium text-gray-900 truncate">Sommarnätter</div>
+<div id="current-track-artist" class="text-sm text-gray-600 truncate">Linnea Henriksson</div>
+</div>
+</div>
+<!-- Player Controls -->
+<div class="flex-grow flex flex-col items-center">
+<div class="flex items-center space-x-4 mb-1">
+<button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700" aria-label="Blanda">
+<i class="ri-shuffle-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-gray-700 hover:text-gray-900" aria-label="Föregående låt">
+<i class="ri-skip-back-fill"></i>
+</button>
+<button id="play-pause-btn" class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white hover:bg-primary/90" aria-label="Pausa låt">
+<i class="ri-pause-fill"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-gray-700 hover:text-gray-900" aria-label="Nästa låt">
+<i class="ri-skip-forward-fill"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700" aria-label="Upprepa">
+<i class="ri-repeat-line"></i>
+</button>
+</div>
+<div class="w-full flex items-center">
+<span id="current-time" class="text-xs text-gray-500 mr-2">0:00</span>
+<input id="player-progress-bar" type="range" class="player-progress flex-grow h-1 bg-gray-200 rounded-full appearance-none cursor-pointer" value="0" min="0" max="100">
+<span id="total-time" class="text-xs text-gray-500 ml-2">3:42</span>
+</div>
+</div>
+<!-- Additional Controls -->
+<div class="flex items-center space-x-4 w-1/4 justify-end">
+<button id="toggle-video-btn" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700" aria-label="Visa video">
+<i class="ri-video-line"></i>
+</button>
+<div class="flex items-center">
+<button id="volume-btn" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700" aria-label="Ljud på">
+<i class="ri-volume-up-line"></i>
+</button>
+<input id="volume-slider-control" type="range" class="volume-slider w-16 h-1 bg-gray-200 rounded-full appearance-none cursor-pointer ml-1" value="80" min="0" max="100">
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700" aria-label="Visa spellista">
+<i class="ri-playlist-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Video Player Modal (Hidden by default) -->
+<div id="video-modal" class="fixed inset-0 bg-black/80 z-[70] hidden flex items-center justify-center p-4">
+<div class="w-full max-w-4xl bg-black rounded-lg overflow-hidden relative shadow-2xl">
+<button id="close-video-btn" class="absolute top-2 right-2 w-10 h-10 rounded-full bg-black/60 flex items-center justify-center text-white hover:bg-black/80 z-10" aria-label="Stäng video">
+<i class="ri-close-line text-2xl"></i>
+</button>
+<div class="aspect-video bg-black relative">
+<div id="youtube-player-container" class="absolute inset-0">
+<p class="text-white text-lg text-center absolute inset-0 flex items-center justify-center" data-translate-key="video_loading">Laddar video...</p>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+// --- TRANSLATION DATA ---
+const translations = {
+    // عمومی
+    logo_text: { sv: "MusikToppen", en: "MusicTop", tr: "MüzikZirvesi" },
+    view_all: { sv: "Visa alla", en: "View All", tr: "Tümünü Gör" },
+    explore_now: { sv: "Utforska nu", en: "Explore Now", tr: "Şimdi Keşfet" },
+    search_placeholder: { sv: "Sök låtar, artister...", en: "Search songs, artists...", tr: "Şarkı, sanatçı ara..." },
+    // Dil Seçenekleri
+    lang_swedish: { sv: "Svenska", en: "Swedish", tr: "İsveççe" },
+    lang_english: { sv: "Engelska", en: "English", tr: "İngilizce" },
+    lang_turkish: { sv: "Turkiska", en: "Turkish", tr: "Türkçe" },
+    // Navigasyon
+    nav_home: { sv: "Hem", en: "Home", tr: "Ana Sayfa" },
+    nav_weekly: { sv: "Veckans Lista", en: "Weekly List", tr: "Haftalık Liste" },
+    nav_monthly: { sv: "Månadens Lista", en: "Monthly List", tr: "Aylık Liste" },
+    nav_yearly: { sv: "Årsbästa", en: "Best of Year", tr: "Yılın En İyileri" },
+    nav_best_2025: { sv: "Best of 2025", en: "Best of 2025", tr: "2025'in En İyileri" },
+    nav_best_2024: { sv: "Best of 2024", en: "Best of 2024", tr: "2024'ün En İyileri" },
+    nav_genres: { sv: "Genrer", en: "Genres", tr: "Türler" },
+    // Ana Butonlar (Header)
+    donate_button: { sv: "Donera", en: "Donate", tr: "Bağış Yap" },
+    contact_button: { sv: "Kontakt", en: "Contact", tr: "İletişim" },
+    donate_button_m: { sv: "Donera", en: "Donate", tr: "Bağış Yap" }, // Mobile
+    contact_button_m: { sv: "Kontakt", en: "Contact", tr: "İletişim" }, // Mobile
+    // Bağış Modalı
+    donation_modal_title: { sv: "Stöd MusikToppen", en: "Support MusicTop", tr: "MüzikZirvesi'ni Destekle" },
+    donation_modal_text: { sv: "Tack för att du vill stödja MusikToppen! Din donation hjälper oss att fortsätta dela bra musik med alla.", en: "Thank you for supporting MusicTop! Your donation helps us continue sharing great music with everyone.", tr: "MüzikZirvesi'ni desteklediğiniz için teşekkürler! Bağışınız herkesle harika müzikler paylaşmaya devam etmemize yardımcı oluyor." },
+    donation_paypal: { sv: "Donera via PayPal", en: "Donate via PayPal", tr: "PayPal ile Bağış Yap" },
+    donation_swish: { sv: "Donera via Swish", en: "Donate via Swish", tr: "Swish ile Bağış Yap" },
+    swish_to: { sv: "Swisha till:", en: "Swish to:", tr: "Swish Numarası:" },
+    swish_receiver: { sv: "Mottagare:", en: "Receiver:", tr: "Alıcı:" },
+    // İletişim Modalı
+    contact_modal_title: { sv: "Kontakta Oss", en: "Contact Us", tr: "Bize Ulaşın" },
+    contact_facebook: { sv: "Följ oss på Facebook", en: "Follow us on Facebook", tr: "Facebook'ta Bizi Takip Edin" },
+    contact_instagram: { sv: "Följ oss på Instagram", en: "Follow us on Instagram", tr: "Instagram'da Bizi Takip Edin" },
+    contact_snapchat: { sv: "Lägg till oss på Snapchat", en: "Add us on Snapchat", tr: "Snapchat'te Bizi Ekleyin" },
+    // Hero Bölümü
+    hero_title: { sv: "Upptäck Musik På Ett Nytt Sätt", en: "Discover Music In A New Way", tr: "Müziği Yeni Bir Şekilde Keşfedin" },
+    hero_subtitle: { sv: "Utforska de senaste topplistorna, upptäck nya genrer och skapa dina egna spellistor med MusikToppen.", en: "Explore the latest charts, discover new genres, and create your own playlists with MusicTop.", tr: "En son listeleri keşfedin, yeni türler bulun ve MüzikZirvesi ile kendi çalma listelerinizi oluşturun." },
+    hero_button_explore_charts: { sv: "Utforska Topplistor", en: "Explore Charts", tr: "Listeleri Keşfet" },
+    hero_button_browse_genres: { sv: "Bläddra Genrer", en: "Browse Genres", tr: "Türlere Göz At" },
+    // Listeler Bölümü Başlıkları
+    charts_weekly_title: { sv: "Veckans Topplista", en: "Weekly Top Chart", tr: "Haftalık Liste Başı" },
+    charts_monthly_title: { sv: "Månadens Topplista", en: "Monthly Top Chart", tr: "Aylık Liste Başı" },
+    charts_best_of_2025_title: { sv: "Best of 2025", en: "Best of 2025", tr: "2025'in En İyileri" },
+    // Tablo Başlıkları
+    table_header_song: { sv: "Låt", en: "Song", tr: "Şarkı" },
+    table_header_artist: { sv: "Artist", en: "Artist", tr: "Sanatçı" },
+    table_header_album: { sv: "Album", en: "Album", tr: "Albüm" },
+    table_header_time: { sv: "Tid", en: "Time", tr: "Süre" },
+    table_header_votes: { sv: "Röster", en: "Votes", tr: "Oylar" },
+    // Türler Bölümü
+    genres_section_title: { sv: "Utforska Genrer", en: "Explore Genres", tr: "Türleri Keşfet" },
+    genre_kurdish: { sv: "Kurdish", en: "Kurdish", tr: "Kürtçe" }, // For dropdown
+    genre_reggae: { sv: "Reggae", en: "Reggae", tr: "Reggae" }, // For dropdown
+    genre_dancehall: { sv: "Dancehall", en: "Dancehall", tr: "Dancehall" }, // For dropdown
+    genre_pop: { sv: "Pop", en: "Pop", tr: "Pop" }, // For dropdown
+    genre_hiphop: { sv: "Hip-Hop", en: "Hip-Hop", tr: "Hip-Hop" }, // For dropdown
+    genre_turkish: { sv: "Turkish", en: "Turkish", tr: "Türkçe" }, // For dropdown
+
+    genre_kurdish_full: { sv: "Kurdish", en: "Kurdish", tr: "Kürtçe Müzik" },
+    genre_kurdish_desc: { sv: "Upptäck kurdisk musik från olika regioner och stilar.", en: "Discover Kurdish music from various regions and styles.", tr: "Farklı bölge ve tarzlara ait Kürtçe müzikleri keşfedin." },
+    genre_turkish_full: { sv: "Turkish", en: "Turkish", tr: "Türk Müziği" },
+    genre_turkish_desc: { sv: "Upptäck de bästa turkiska låtarna från både traditionell och modern musik.", en: "Discover the best Turkish songs from both traditional and modern music.", tr: "Geleneksel ve modern Türk müziğinin en iyi şarkılarını keşfedin." },
+    genre_reggae_full: { sv: "Reggae", en: "Reggae", tr: "Reggae Müziği" },
+    genre_reggae_desc: { sv: "Klassisk och modern reggae från Jamaica och världen över.", en: "Classic and modern reggae from Jamaica and worldwide.", tr: "Jamaika'dan ve dünya çapından klasik ve modern reggae." },
+    genre_hiphop_full: { sv: "HipHop", en: "HipHop", tr: "HipHop Müziği" },
+    genre_hiphop_desc: { sv: "Det bästa inom hiphop och rap.", en: "The best in hip hop and rap.", tr: "Hip hop ve rap müziğinin en iyileri." },
+    // Genre Specific List
+    back_to_all_genres: { sv: "Tillbaka till alla genrer", en: "Back to all genres", tr: "Tüm Türlere Geri Dön" },
+    table_header_song_genre: { sv: "Låt", en: "Song", tr: "Şarkı" },
+    table_header_artist_genre: { sv: "Artist", en: "Artist", tr: "Sanatçı" },
+    table_header_album_genre: { sv: "Album", en: "Album", tr: "Albüm" },
+    table_header_time_genre: { sv: "Tid", en: "Time", tr: "Süre" },
+    no_songs_genre: { sv: "Inga låtar hittades för denna genre.", en: "No songs found for this genre.", tr: "Bu tür için şarkı bulunamadı." },
+    // Video Player
+    video_loading: { sv: "Laddar video...", en: "Loading video...", tr: "Video yükleniyor..." },
+    video_unavailable: { sv: "Ingen video tillgänglig för vald låt.", en: "No video available for the selected song.", tr: "Seçilen şarkı için video mevcut değil." },
+};
+
+// --- DUMMY GENRE DATA ---
+const genreSpecificSongs = {
+    kurdish: [
+        { id: "kurdish-1", title: "Kurdi Melody", artist: "Şivan Perwer", album: "Kurdish Vibes", time: "4:15", youtubeId: "exampleKurdish1" },
+        { id: "kurdish-2", title: "Dilan", artist: "Aynur Doğan", album: "Nûpel", time: "3:50", youtubeId: "exampleKurdish2" },
+    ],
+    turkish: [
+        { id: "turkish-1", title: "İstanbul", artist: "Sezen Aksu", album: "Gülümse", time: "5:02", youtubeId: "exampleTurkish1" },
+        { id: "turkish-2", title: "Ankara'da Aşık Olmak", artist: "Tarkan", album: "Karma", time: "4:30", youtubeId: "exampleTurkish2" },
+    ],
+    reggae: [
+        { id: "reggae-1", title: "One Love", artist: "Bob Marley", album: "Exodus", time: "2:52", youtubeId: "vdB-8eQISA0" },
+        { id: "reggae-2", title: "Red Red Wine", artist: "UB40", album: "Labour of Love", time: "5:21", youtubeId: "zXt56MB-3vc" },
+    ],
+    hiphop: [
+        { id: "hiphop-1", title: "Nuthin' But A G Thang", artist: "Dr. Dre ft. Snoop Dogg", album: "The Chronic", time: "3:58", youtubeId: "0F0h7P2K1k0" },
+        { id: "hiphop-2", title: "Juicy", artist: "The Notorious B.I.G.", album: "Ready to Die", time: "5:02", youtubeId: "_JZom_gVfuw" },
+    ],
+    // Add more genres and their songs here
+};
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const appBody = document.getElementById('app-body');
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    
+    const donateBtn = document.getElementById('donate-btn');
+    const contactBtn = document.getElementById('contact-btn');
+    const donateBtnMobile = document.getElementById('donate-btn-mobile');
+    const contactBtnMobile = document.getElementById('contact-btn-mobile');
+
+    const donationModal = document.getElementById('donation-modal');
+    const contactModal = document.getElementById('contact-modal');
+    const closeDonationModal = document.getElementById('close-donation-modal');
+    const closeContactModal = document.getElementById('close-contact-modal');
+    const showSwishBtn = document.getElementById('show-swish');
+    const swishInfoDiv = document.getElementById('swish-info');
+
+    const languageLinks = document.querySelectorAll('a[data-lang]');
+    const currentFlagImg = document.getElementById('current-language-flag');
+
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mainNav = document.getElementById('main-nav');
+    const mobileActionButtons = document.getElementById('mobile-action-buttons');
+
+
+    // --- THEME ---
+    function setLightTheme() {
+        appBody.classList.remove('dark');
+        themeIcon.classList.remove('ri-moon-fill');
+        themeIcon.classList.add('ri-sun-line');
+        localStorage.setItem('theme', 'light');
+    }
+
+    function setDarkTheme() {
+        appBody.classList.add('dark');
+        themeIcon.classList.remove('ri-sun-line');
+        themeIcon.classList.add('ri-moon-fill');
+        localStorage.setItem('theme', 'dark');
+    }
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        setDarkTheme();
+    } else {
+        setLightTheme();
+    }
+
+    themeToggle.addEventListener('click', function() {
+        appBody.classList.contains('dark') ? setLightTheme() : setDarkTheme();
+    });
+
+    // --- MODALS ---
+    function setupModal(openBtn, modal, closeBtn) {
+        if(openBtn && modal && closeBtn) {
+            openBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+            closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.add('hidden');
+            });
+        }
+    }
+    setupModal(donateBtn, donationModal, closeDonationModal);
+    setupModal(contactBtn, contactModal, closeContactModal);
+    if (donateBtnMobile) setupModal(donateBtnMobile, donationModal, closeDonationModal);
+    if (contactBtnMobile) setupModal(contactBtnMobile, contactModal, closeContactModal);
+
+
+    if (showSwishBtn && swishInfoDiv) {
+        showSwishBtn.addEventListener('click', () => swishInfoDiv.classList.toggle('hidden'));
+    }
+
+    // --- MOBILE MENU ---
+    if (mobileMenuButton && mainNav && mobileActionButtons) {
+        mobileMenuButton.addEventListener('click', function() {
+            mainNav.classList.toggle('mobile-active');
+            mobileActionButtons.classList.toggle('hidden');
+            mobileActionButtons.classList.toggle('flex');
+        });
+    }
+
+
+    // --- LANGUAGE SWITCHER ---
+    let currentLanguage = localStorage.getItem('language') || 'sv';
+
+    function applyTranslations(lang) {
+        document.querySelectorAll('[data-translate-key]').forEach(el => {
+            const key = el.dataset.translateKey;
+            if (translations[key] && translations[key][lang]) {
+                if (el.tagName === 'INPUT' && el.type === 'text' && el.placeholder) {
+                    el.placeholder = translations[key][lang];
+                } else {
+                    el.textContent = translations[key][lang];
+                }
+            }
+        });
+        document.documentElement.lang = lang;
+        if (currentFlagImg) {
+            const langNameKey = `lang_${lang === 'gb' ? 'english' : (lang === 'tr' ? 'turkish' : 'swedish')}`;
+             if(translations[langNameKey] && translations[langNameKey][lang]) {
+                currentFlagImg.alt = translations[langNameKey][lang];
+             } else {
+                currentFlagImg.alt = lang.toUpperCase();
+             }
+        }
+    }
+
+    function setLanguage(lang) {
+        currentLanguage = lang;
+        localStorage.setItem('language', lang);
+        if (currentFlagImg) {
+            let flagCode = lang;
+            if (lang === 'en') flagCode = 'gb';
+            currentFlagImg.src = `https://flagcdn.com/w20/${flagCode}.png`;
+        }
+        applyTranslations(lang);
+    }
+
+    languageLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const lang = this.dataset.lang;
+            setLanguage(lang);
+        });
+    });
+    
+    setLanguage(currentLanguage);
+
+
+    // --- MUSIC PLAYER & VIDEO ---
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const toggleVideoBtn = document.getElementById('toggle-video-btn');
+    const videoModal = document.getElementById('video-modal');
+    const closeVideoBtn = document.getElementById('close-video-btn');
+    const volumeBtn = document.getElementById('volume-btn');
+    const volumeSlider = document.getElementById('volume-slider-control');
+    const youtubePlayerContainer = document.getElementById('youtube-player-container');
+    let currentYoutubeId = null;
+
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener('click', function() {
+            const icon = playPauseBtn.querySelector('i');
+            const isPlaying = icon.classList.contains('ri-pause-fill');
+            icon.className = isPlaying ? 'ri-play-fill' : 'ri-pause-fill';
+            playPauseBtn.setAttribute('aria-label', isPlaying ? 'Spela låt' : 'Pausa låt');
+        });
+    }
+
+    function injectYouTubePlayer(videoId) {
+        youtubePlayerContainer.innerHTML = '';
+        if (videoId) {
+            const iframe = document.createElement('iframe');
+            iframe.width = '100%';
+            iframe.height = '100%';
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0`;
+            iframe.title = "YouTube video player";
+            iframe.frameBorder = "0";
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+            iframe.allowFullscreen = true;
+            youtubePlayerContainer.appendChild(iframe);
+        } else {
+            const noVideoText = (translations.video_unavailable && translations.video_unavailable[currentLanguage]) ? translations.video_unavailable[currentLanguage] : "No video available.";
+            youtubePlayerContainer.innerHTML = `<p class="text-white text-lg text-center absolute inset-0 flex items-center justify-center">${noVideoText}</p>`;
+        }
+    }
+    
+    if (toggleVideoBtn && videoModal) {
+        toggleVideoBtn.addEventListener('click', function() {
+            if (currentYoutubeId) {
+                injectYouTubePlayer(currentYoutubeId);
+                videoModal.classList.remove('hidden');
+            } else {
+                const notification = document.createElement('div');
+                notification.className = 'fixed bottom-20 right-4 bg-red-500 text-white px-4 py-2 rounded-md shadow-lg text-sm';
+                const noVideoText = (translations.video_unavailable && translations.video_unavailable[currentLanguage]) ? translations.video_unavailable[currentLanguage] : "No video available.";
+                notification.textContent = noVideoText;
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 3000);
+            }
+        });
+    }
+
+    if(closeVideoBtn && videoModal) {
+        const loadingText = (translations.video_loading && translations.video_loading[currentLanguage]) ? translations.video_loading[currentLanguage] : "Loading video...";
+        closeVideoBtn.addEventListener('click', function() {
+            videoModal.classList.add('hidden');
+            youtubePlayerContainer.innerHTML = `<p class="text-white text-lg text-center absolute inset-0 flex items-center justify-center">${loadingText}</p>`;
+        });
+        videoModal.addEventListener('click', function(e) {
+            if (e.target === videoModal) {
+                videoModal.classList.add('hidden');
+                youtubePlayerContainer.innerHTML = `<p class="text-white text-lg text-center absolute inset-0 flex items-center justify-center">${loadingText}</p>`;
+            }
+        });
+    }
+
+    if(volumeBtn && volumeSlider) {
+        volumeBtn.addEventListener('click', function() {
+            const icon = volumeBtn.querySelector('i');
+            const isMuted = icon.classList.contains('ri-volume-mute-line');
+            if (isMuted) {
+                icon.className = 'ri-volume-up-line';
+                volumeSlider.value = 80;
+                volumeBtn.setAttribute('aria-label', 'Ljud på');
+            } else {
+                icon.className = 'ri-volume-mute-line';
+                volumeSlider.value = 0;
+                volumeBtn.setAttribute('aria-label', 'Ljud av');
+            }
+        });
+        volumeSlider.addEventListener('input', function() {
+            const icon = volumeBtn.querySelector('i');
+            if (this.value == 0) icon.className = 'ri-volume-mute-line';
+            else if (this.value < 50) icon.className = 'ri-volume-down-line';
+            else icon.className = 'ri-volume-up-line';
+        });
+    }
+
+    const currentTrackImage = document.getElementById('current-track-image');
+    const currentTrackTitle = document.getElementById('current-track-title');
+    const currentTrackArtist = document.getElementById('current-track-artist');
+    const mainPlayPauseBtn = document.getElementById('play-pause-btn');
+
+    function updatePlayerInfo(trackItem) {
+        if (!trackItem) return;
+        const titleEl = trackItem.querySelector('.font-medium');
+        const title = titleEl ? titleEl.textContent.trim() : 'Okänd Låt';
+        let artist;
+        const artistElMobile = trackItem.querySelector('.text-sm.text-gray-500.md\\:hidden');
+        const artistElDesktop = trackItem.querySelector('td:nth-child(3).hidden.md\\:table-cell');
+        const artistElMonthly = trackItem.querySelector('.text-sm.text-gray-600');
+        
+        if (artistElMobile && artistElMobile.offsetParent !== null) artist = artistElMobile.textContent.trim();
+        else if (artistElDesktop) artist = artistElDesktop.textContent.trim();
+        else if (artistElMonthly) artist = artistElMonthly.textContent.trim();
+        else artist = 'Okänd Artist';
+
+        const imageEl = trackItem.querySelector('img');
+        const imageSrc = imageEl ? imageEl.src : 'https://readdy.ai/api/search-image?query=default%20album%20art&width=60&height=60&seq=default&orientation=squarish';
+        
+        currentYoutubeId = trackItem.dataset.youtubeId || null;
+
+        if (currentTrackTitle) currentTrackTitle.textContent = title;
+        if (currentTrackArtist) currentTrackArtist.textContent = artist;
+        if (currentTrackImage) currentTrackImage.src = imageSrc;
+        if (mainPlayPauseBtn) {
+            mainPlayPauseBtn.querySelector('i').className = 'ri-pause-fill';
+            mainPlayPauseBtn.setAttribute('aria-label', 'Pausa låt');
+        }
+    }
+    
+    document.body.addEventListener('click', function(event) {
+        const playButton = event.target.closest('.play-track-btn');
+        if (playButton) {
+            const trackItem = playButton.closest('.track-item');
+            updatePlayerInfo(trackItem);
+        }
+    });
+
+
+    // --- VOTING SYSTEM ---
+    document.body.addEventListener('click', function(event) {
+        const voteButton = event.target.closest('.vote-btn');
+        if (!voteButton) return;
+
+        const trackItem = voteButton.closest('.track-item');
+        if (!trackItem) return;
+        const trackId = trackItem.dataset.trackId;
+        if (!trackId) return;
+
+        const isLike = voteButton.classList.contains('like-btn');
+        const countElement = isLike ? trackItem.querySelector('.like-count') : trackItem.querySelector('.dislike-count');
+        const otherButton = isLike ? trackItem.querySelector('.dislike-btn') : trackItem.querySelector('.like-btn');
+        
+        if (!countElement) return;
+
+        let currentCount = parseInt(countElement.textContent);
+        const voteStateKey = `vote-${trackId}`;
+        const currentVote = localStorage.getItem(voteStateKey);
+
+        if ((isLike && currentVote === 'like') || (!isLike && currentVote === 'dislike')) {
+            voteButton.classList.remove('active', 'bg-primary', 'text-white');
+            voteButton.querySelector('i').classList.remove('text-white');
+            countElement.textContent = currentCount - 1;
+            localStorage.removeItem(voteStateKey);
+        } else {
+            if (otherButton && otherButton.classList.contains('active')) {
+                otherButton.classList.remove('active', 'bg-primary', 'text-white');
+                otherButton.querySelector('i').classList.remove('text-white');
+                const otherCountEl = isLike ? trackItem.querySelector('.dislike-count') : trackItem.querySelector('.like-count');
+                if (otherCountEl) otherCountEl.textContent = parseInt(otherCountEl.textContent) - 1;
+            }
+            voteButton.classList.add('active', 'bg-primary', 'text-white');
+            voteButton.querySelector('i').classList.add('text-white');
+            countElement.textContent = currentCount + 1;
+            localStorage.setItem(voteStateKey, isLike ? 'like' : 'dislike');
+        }
+    });
+    
+    document.querySelectorAll('.track-item[data-track-id]').forEach(trackItem => {
+        const trackId = trackItem.dataset.trackId;
+        const voteState = localStorage.getItem(`vote-${trackId}`);
+        if (voteState === 'like') {
+            const btn = trackItem.querySelector('.like-btn');
+            if (btn) { btn.classList.add('active', 'bg-primary', 'text-white'); btn.querySelector('i').classList.add('text-white');}
+        } else if (voteState === 'dislike') {
+             const btn = trackItem.querySelector('.dislike-btn');
+            if (btn) {btn.classList.add('active', 'bg-primary', 'text-white'); btn.querySelector('i').classList.add('text-white');}
+        }
+    });
+
+    // --- GENRE CLICK & DISPLAY ---
+    const genreCards = document.querySelectorAll('.genre-card');
+    const genreLinksDropdown = document.querySelectorAll('.genre-link');
+    const mainContentArea = document.getElementById('main-content-area');
+    const genreSpecificListSection = document.getElementById('genre-specific-list-section');
+    const genreSpecificTitle = document.getElementById('genre-specific-title');
+    const genreSpecificTrackList = document.getElementById('genre-specific-track-list');
+    const backToAllGenresBtn = document.getElementById('back-to-all-genres-btn');
+
+    function displayGenreSpecificList(genreKey, genreNameKey) {
+        mainContentArea.classList.add('hidden');
+        genreSpecificListSection.classList.remove('hidden');
+
+        const genreDisplayName = (translations[genreNameKey] && translations[genreNameKey][currentLanguage]) 
+                                 ? translations[genreNameKey][currentLanguage] 
+                                 : genreKey.charAt(0).toUpperCase() + genreKey.slice(1);
+        const listTitlePrefix = (translations.charts_weekly_title && translations.charts_weekly_title[currentLanguage])
+                                ? translations.charts_weekly_title[currentLanguage].split(' ')[0]
+                                : "Top"; 
+        genreSpecificTitle.textContent = `${listTitlePrefix} ${genreDisplayName}`;
+        
+        genreSpecificTrackList.innerHTML = '';
+
+        const songsForGenre = genreSpecificSongs[genreKey] || [];
+        if (songsForGenre.length === 0) {
+            const noSongsText = (translations.no_songs_genre && translations.no_songs_genre[currentLanguage]) 
+                                ? translations.no_songs_genre[currentLanguage]
+                                : "No songs found for this genre.";
+            genreSpecificTrackList.innerHTML = `<tr><td colspan="6" class="text-center py-4">${noSongsText}</td></tr>`;
+            return;
+        }
+        
+        songsForGenre.forEach((song, index) => {
+            const row = `
+                <tr class="track-item border-b" data-track-id="${song.id}" ${song.youtubeId ? `data-youtube-id="${song.youtubeId}"` : ''}>
+                    <td class="px-4 py-3 text-sm font-medium">${index + 1}</td>
+                    <td class="px-4 py-3">
+                        <div class="flex items-center">
+                            <img src="https://readdy.ai/api/search-image?query=${encodeURIComponent(song.album)}%20album%20cover&width=60&height=60&seq=${song.id}&orientation=squarish" alt="${song.title}" class="w-10 h-10 rounded mr-3">
+                            <div>
+                                <div class="font-medium">${song.title}</div>
+                                <div class="text-sm text-gray-500 md:hidden">${song.artist}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3 text-sm hidden md:table-cell">${song.artist}</td>
+                    <td class="px-4 py-3 text-sm hidden lg:table-cell">${song.album}</td>
+                    <td class="px-4 py-3 text-sm hidden sm:table-cell">${song.time}</td>
+                    <td class="px-4 py-3">
+                        <div class="flex justify-center items-center space-x-2 track-controls">
+                            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 play-track-btn" aria-label="Spela låt">
+                                <i class="ri-play-fill"></i>
+                            </button>
+                            <button class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200" aria-label="Lägg till i spellista">
+                                <i class="ri-add-line"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>`;
+            genreSpecificTrackList.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+    function showMainContent() {
+        mainContentArea.classList.remove('hidden');
+        genreSpecificListSection.classList.add('hidden');
+    }
+    
+    genreCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const genreKey = this.dataset.genre;
+            const genreNameKey = this.dataset.genreNameKey;
+            if (genreKey) {
+                displayGenreSpecificList(genreKey, genreNameKey);
+            }
+        });
+    });
+
+    genreLinksDropdown.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const genreKey = this.dataset.genre;
+            const genreNameKey = (translations[genreKey + '_full'] && translations[genreKey + '_full'][currentLanguage]) ? genreKey + '_full' : genreKey; 
+            if (genreKey) {
+                displayGenreSpecificList(genreKey, genreNameKey);
+                if (mainNav.classList.contains('mobile-active')) {
+                    mainNav.classList.remove('mobile-active');
+                    mobileActionButtons.classList.add('hidden');
+                    mobileActionButtons.classList.remove('flex');
+                }
+            }
+        });
+    });
+
+    if (backToAllGenresBtn) {
+        backToAllGenresBtn.addEventListener('click', showMainContent);
+    }
+});
+</script>
+</body>
+</html>
